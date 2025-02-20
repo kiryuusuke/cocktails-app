@@ -9,3 +9,12 @@ export const getPublishedCocktails = createAsyncThunk<Cocktail[], void>(
         return response.data || []
     }
 );
+
+export const getOneCocktail = createAsyncThunk<Cocktail | null, string>(
+    'cocktails/getOneCocktail',
+    async(cocktailId) => {
+        const response = await axiosApi.get<Cocktail | null>(`/cocktails/${cocktailId}`);
+        if(!response.data) return null;
+        return response.data;
+    }
+);

@@ -8,7 +8,7 @@ interface Props {
     cocktails: Cocktail;
 }
 
-const CocktailItem: React.FC<Props> = ({cocktails}) => {
+const AdminCocktailItem: React.FC<Props> = ({cocktails}) => {
     const dispatch = useAppDispatch();
 
     const publishedCheckout = () => {
@@ -54,4 +54,4 @@ const CocktailItem: React.FC<Props> = ({cocktails}) => {
     );
 };
 
-export default CocktailItem;
+export default AdminCocktailItem;
