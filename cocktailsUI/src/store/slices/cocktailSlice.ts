@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Cocktail} from "../../typesUI.ts";
-import {getOneCocktail, getPublishedCocktails} from "../thunks/cocktailThunk.ts";
+import {getOneCocktail, getPublishedCocktails, getUsersCocktails} from "../thunks/cocktailThunk.ts";
 
 interface CocktailSliceState {
     cocktails: Cocktail[];
@@ -54,6 +54,24 @@ const cocktailSlice = createSlice({
             )
             .addCase(
                 getOneCocktail.rejected, (state) => {
+                    state.isLoading = false;
+                    state.isError = true;
+                }
+            )
+            .addCase(
+                getUsersCocktails.pending, (state) => {
+                    state.isLoading = true;
+                    state.isError = false;
+                }
+            )
+            .addCase(
+                getUsersCocktails.fulfilled, (state, action) => {
+                    state.isLoading = false;
+                    state.cocktails = action.payload
+                }
+            )
+            .addCase(
+                getUsersCocktails.rejected, (state) => {
                     state.isLoading = false;
                     state.isError = true;
                 }

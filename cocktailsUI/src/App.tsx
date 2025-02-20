@@ -5,6 +5,8 @@ import ProtectedRoute from "./features/ProtectedRoute/ProtectedRoute.tsx";
 import AdminLayout from "./features/admin/AdminLayout/AdminLayout.tsx";
 import {useAppSelector} from "./app/hooks.ts";
 import AdminCocktails from "./features/admin/AdminCocktails/AdminCocktails.tsx";
+import FullCocktailPostPage from "./features/cocktails/FullCocktailPostPage.tsx";
+import UsersCocktails from "./features/users/UsersCocktails.tsx";
 
 const App = () => {
     const user = useAppSelector((state) => state.users.user)
@@ -15,6 +17,8 @@ const App = () => {
             </header>
             <Routes>
                 <Route path='/' element={<Cocktails /> } />
+                <Route path='/cocktails/:cocktailId' element={<FullCocktailPostPage /> } />
+                <Route path='/cocktails/:userId/mycocktails' element={<UsersCocktails /> } />
                 <Route path='/admin' element={
                     <ProtectedRoute isAllowed={user && user.role === 'admin'}>
                         <AdminLayout />

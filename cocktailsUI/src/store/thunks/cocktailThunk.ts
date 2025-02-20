@@ -18,3 +18,11 @@ export const getOneCocktail = createAsyncThunk<Cocktail | null, string>(
         return response.data;
     }
 );
+
+export const getUsersCocktails = createAsyncThunk<Cocktail[], string>(
+    'cocktails/getUsersCocktails',
+    async(userId: string) => {
+            const response = await axiosApi.get<Cocktail[]>(`/cocktails/${userId}/mycocktails`);
+            return response.data
+    }
+)
