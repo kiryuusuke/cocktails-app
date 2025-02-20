@@ -8,13 +8,13 @@ export interface UserTypes {
     userAvatar: string | null
 }
 
-export interface Cocktail {
+export interface CocktailTypes {
     user: string;
     cocktailName: string;
     cocktailImage: string | null;
     receipt: string;
     isPublished: boolean;
-    ingredients: [Ingredients];
+    ingredients: Ingredients[];
 }
 
 export interface Ingredients {

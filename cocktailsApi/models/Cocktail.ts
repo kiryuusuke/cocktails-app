@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {Ingredient} from "./Ingredient";
+import {IngredientSchema} from "./Ingredient";
 
 const Schema = mongoose.Schema;
 
@@ -25,7 +25,10 @@ const CocktailSchema = new Schema({
         type: Boolean,
         default: false
     },
-    ingredients: [Ingredient],
+    ingredients: {
+        type: [IngredientSchema],
+        required: true
+    },
 });
 
 export const Cocktail = mongoose.model('Cocktail', CocktailSchema);

@@ -80,7 +80,7 @@ userRouter.post('/register', imagesUpload.single('userAvatar'), async (req, res,
 });
 
 userRouter.post('/sessions', async (req, res) => {
-    const existsUser = await User.findOne({username: req.body.username});
+    const existsUser = await User.findOne({email: req.body.email});
 
     if(!existsUser) {
         res.status(400).send({error: 'User is not found'})
