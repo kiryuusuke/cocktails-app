@@ -41,3 +41,31 @@ export interface LoginUser {
     email: string;
     password: string;
 }
+
+export interface Cocktail {
+    _id: string;
+    user: User;
+    cocktailName: string;
+    cocktailImage: string | null;
+    receipt: string;
+    isPublished: boolean;
+    ingredients: Ingredients[];
+}
+
+export interface CocktailMutation {
+    user: string;
+    cocktailName: string;
+    cocktailImage: File | null;
+    receipt: string;
+    isPublished: boolean;
+    ingredients: string;
+}
+
+export interface Ingredients {
+    _id: string
+    name: string;
+    amount: string;
+}
+
+export type IngredientsMutation = Omit<Ingredients, '_id'>;
+export type ApiCocktail = Omit<CocktailMutation, '_id'>;

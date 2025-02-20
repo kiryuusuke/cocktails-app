@@ -3,6 +3,8 @@ import storage from 'redux-persist/lib/storage';
 import {persistReducer, persistStore} from 'redux-persist';
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
 import {userReducer} from "../store/slices/userSlice.ts";
+import {cocktailReducer} from "../store/slices/cocktailSlice.ts";
+import {adminCocktailReducer} from "../features/admin/AdminCocktails/AdminCocktailSlice.ts";
 
 const usersPersistConfig = {
     key: 'store:users',
@@ -12,6 +14,8 @@ const usersPersistConfig = {
 
 const rootReducer = combineReducers({
     users: persistReducer(usersPersistConfig, userReducer),
+    cocktails: cocktailReducer,
+    adminCocktails: adminCocktailReducer,
 })
 
 export const store = configureStore({

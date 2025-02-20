@@ -20,7 +20,6 @@ export const googleLogin = createAsyncThunk<User, string, {rejectValue: GlobalEr
     }
 )
 
-
 export const register = createAsyncThunk<RegisterResponse,
     RegisterUser,
     { rejectValue: ValidationErr }
