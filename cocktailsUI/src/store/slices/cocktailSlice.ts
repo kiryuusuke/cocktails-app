@@ -1,10 +1,17 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Cocktail} from "../../typesUI.ts";
-import {addNewCocktail, getOneCocktail, getPublishedCocktails, getUsersCocktails} from "../thunks/cocktailThunk.ts";
+import {Cocktail, Ingredients} from "../../typesUI.ts";
+import {
+    addIngredients,
+    addNewCocktail,
+    getOneCocktail,
+    getPublishedCocktails,
+    getUsersCocktails
+} from "../thunks/cocktailThunk.ts";
 
 interface CocktailSliceState {
     cocktails: Cocktail[];
     oneCocktail: Cocktail | null;
+    ingredients: Ingredients[];
     isLoading: boolean;
     isError: boolean;
 }
@@ -12,6 +19,7 @@ interface CocktailSliceState {
 const initialState: CocktailSliceState = {
     cocktails: [],
     oneCocktail: null,
+    ingredients: [],
     isLoading: false,
     isError: false,
 }
@@ -93,6 +101,17 @@ const cocktailSlice = createSlice({
                     state.isError = true;
                 }
             )
+            .addCase(addIngredients.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(addIngredients.fulfilled, (state, action: PayloadAction<Ingredients>) => {
+                state.isLoading = false;
+                state.ingredients.push(action.payload);
+            })
+            .addCase(addIngredients.rejected, (state) => {
+                state.isLoading = false;
+                state.isError = true
+            });
     }
 });
 

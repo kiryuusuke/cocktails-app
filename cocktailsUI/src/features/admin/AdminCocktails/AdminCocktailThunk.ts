@@ -31,8 +31,9 @@ export const deleteCocktail = createAsyncThunk<void, string, { state: RootState 
     async(cocktailId, { getState }) => {
         try {
             const token = getState().users.user?.token;
+            console.log('Token:', token);
             await axiosApi.delete(`/admin/cocktails/${cocktailId}`,
-                {headers: {Authorization: `Bearer ${token}`}
+                {headers: {Authorization: token}
                 });
         } catch(e) {
             console.error(e);

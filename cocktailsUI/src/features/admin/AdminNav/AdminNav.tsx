@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const AdminNav = () => {
     return (
-        <Grid container>
+        <Grid container sx={{marginTop: '90px'}}>
             <Grid>
                 <Typography variant="h5">
                     Admin Nav

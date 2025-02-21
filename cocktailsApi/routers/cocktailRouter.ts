@@ -6,29 +6,33 @@ import {CocktailTypes, Ingredients} from "../typesApi";
 
 export const cocktailRouter = express.Router();
 
-cocktailRouter.get('/', async(_req, res, next) => {
+cocktailRouter.get('/', async(req, res, next) => {
     try {
-        const cocktails = await Cocktail.find({isPublished: true});
+        const {userId} = req.query;
+        if(userId) {
+            res.send(await Cocktail.find({user: userId}));
+        }
+        const cocktails = await Cocktail.find({isPublished: true}).populate('user', 'displayName');
         res.send(cocktails);
     } catch(e) {
         next(e)
     }
 });
 
-cocktailRouter.get('/:userId/mycocktails', async( req, res, next) => {
-    const {userId} = req.params
-    try {
-        if(!userId) {
-            res.status(404).send({message: 'User is not found.'});
-            return
-        }
-            const userCocktails = await Cocktail.find({user: userId});
-            res.send(userCocktails);
-
-    } catch(e) {
-        next(e)
-    }
-})
+// cocktailRouter.get('/:userId/mycocktails', async( req, res, next) => {
+//     const {userId} = req.params
+//     try {
+//         if(!userId) {
+//             res.status(404).send({message: 'User is not found.'});
+//             return
+//         }
+//             const userCocktails = await Cocktail.find({user: userId});
+//             res.send(userCocktails);
+//
+//     } catch(e) {
+//         next(e)
+//     }
+// })
 
 cocktailRouter.get('/:id', async(req, res, next) => {
     const {id} = req.params;

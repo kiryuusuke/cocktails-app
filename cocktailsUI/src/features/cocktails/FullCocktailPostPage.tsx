@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 import {getOneCocktail} from "../../store/thunks/cocktailThunk.ts";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 import FullCocktailPostItem from "./FullCocktailPostItem.tsx";
+import {Box} from "@mui/material";
 
 const FullCocktailPostPage = () => {
     const {cocktailId} = useParams();
@@ -25,9 +26,9 @@ const FullCocktailPostPage = () => {
         <>
             {loading ? <Spinner />
             :
-            <>
+            <Box sx={{paddingTop: 10, bgcolor: 'black'}}>
                 <FullCocktailPostItem key={cocktail._id} cocktails={cocktail}/>
-            </>
+            </Box>
 
             }
         </>

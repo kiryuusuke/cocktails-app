@@ -9,7 +9,15 @@ const MainToolbar = () => {
     const user = useAppSelector((state) => state.users.user)
     return (
         <>
-            <AppBar position='sticky'>
+            <AppBar
+                position='fixed'
+                sx={{
+                    justifyContent: 'center',
+                    boxShadow: 'none',
+                    bgcolor: 'rgba(255, 255, 255, 0.2)',
+                    backdropFilter: 'blur(10px)',
+                    mt: '20px'
+                }}>
                 <Toolbar>
                     <Typography variant='h6' component='div' sx={{flexGrow: 1}}>
                         <NavLink to='/' className='text-decoration-none text-black'>

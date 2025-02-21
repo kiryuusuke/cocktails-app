@@ -10,6 +10,7 @@ import UsersCocktails from "./features/users/UsersCocktails.tsx";
 import CocktailForm from "./components/forms/CocktailForm.tsx";
 import LoginPage from "./features/users/LoginPage.tsx";
 import RegisterPage from "./features/users/RegisterPage.tsx";
+import {Box} from "@mui/material";
 
 const App = () => {
     const user = useAppSelector((state) => state.users.user)
@@ -18,10 +19,12 @@ const App = () => {
             <header>
                 <MainToolbar />
             </header>
+            <Box
+            >
             <Routes>
                 <Route path='/' element={<Cocktails /> } />
                 <Route path='/cocktails/:cocktailId' element={<FullCocktailPostPage /> } />
-                <Route path='/cocktails/:userId/mycocktails' element={<UsersCocktails /> } />
+                <Route path='/mycocktails' element={<UsersCocktails /> } />
                 <Route path='/addCocktails' element={<CocktailForm /> } />
                 <Route path='/login' element={<LoginPage /> } />
                 <Route path='/register' element={<RegisterPage /> } />
@@ -34,6 +37,7 @@ const App = () => {
                 </Route>
                 <Route path='*' element={<p>Not found</p>} />
             </Routes>
+            </Box>
         </>
     );
 };

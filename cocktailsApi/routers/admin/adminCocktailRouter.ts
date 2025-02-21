@@ -1,10 +1,9 @@
 import express from "express";
 import {Cocktail} from "../../models/Cocktail";
-import auth from "../../middleware/auth";
 
 export const adminCocktailRouter = express.Router();
 
-adminCocktailRouter.get('/', auth, async(_req, res, next) => {
+adminCocktailRouter.get('/', async(_req, res, next) => {
     try {
         const cocktails = await Cocktail.find();
         res.send(cocktails);
@@ -14,7 +13,7 @@ adminCocktailRouter.get('/', auth, async(_req, res, next) => {
     }
 });
 
-adminCocktailRouter.patch('/:id/publish', auth, async (req, res, next) => {
+adminCocktailRouter.patch('/:id/publish', async (req, res, next) => {
     const {id} = req.params;
     try {
         const cocktail = await Cocktail.findByIdAndUpdate(
@@ -35,7 +34,7 @@ adminCocktailRouter.patch('/:id/publish', auth, async (req, res, next) => {
 });
 
 
-adminCocktailRouter.delete('/:id', auth, async(req, res, next) => {
+adminCocktailRouter.delete('/:id', async(req, res, next) => {
     const {id} = req.params;
     try {
         if(!id) {

@@ -1,11 +1,12 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import {CocktailMutation} from "../../typesUI.ts";
-import {useAppDispatch} from "../../app/hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 import {addNewCocktail} from "../../store/thunks/cocktailThunk.ts";
 import Grid from "@mui/material/Grid2";
 import {Button, TextField} from "@mui/material";
 import FileInput from "../UI/FileInput/FileInput.tsx";
 import {CloudUpload} from "@mui/icons-material";
+import {useNavigate} from "react-router-dom";
 
 const initialState = {
     user: '',
@@ -20,10 +21,15 @@ const CocktailForm = () => {
     const [form, setForm] = useState<CocktailMutation>(initialState)
     const [ingredients, setIngredients] = useState<{name: string; amount: string}[]>([]);
     const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.users.user);
+    const navigate = useNavigate()
+
+    if(!user) return console.log('user not found')
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        dispatch(addNewCocktail({...form, ingredients: JSON.stringify(ingredients)}))
+        dispatch(addNewCocktail({...form, ingredients: JSON.stringify(ingredients), user: user._id}))
+        navigate('/');
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,13 +76,14 @@ const CocktailForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form style={{marginTop: '100px' }} onSubmit={handleSubmit}>
             <Grid container direction="column" spacing={2}>
                 <Grid size={{xs: 12}}>
                     <TextField
                         id="cocktailName"
                         name="cocktailName"
                         label="Cocktail Name"
+                        fullWidth
                         required
                         value={form.cocktailName}
                         onChange={handleChange}
@@ -129,6 +136,7 @@ const CocktailForm = () => {
                         id="receipt"
                         name="receipt"
                         label="Receipt"
+                        fullWidth
                         required
                         value={form.receipt}
                         onChange={handleChange}

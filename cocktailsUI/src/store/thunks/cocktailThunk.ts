@@ -3,6 +3,12 @@ import {Cocktail, CocktailMutation} from "../../typesUI.ts";
 import axiosApi from "../../axiosApi.ts";
 import {RootState} from "../../app/store.ts";
 
+interface AddIngredientsPayload {
+    cocktailId: string;
+    ingredients: { name: string; amount: string };
+}
+
+
 export const getPublishedCocktails = createAsyncThunk<Cocktail[], void>(
     'cocktails/getPublishedCocktails',
     async() => {
@@ -23,7 +29,7 @@ export const getOneCocktail = createAsyncThunk<Cocktail | null, string>(
 export const getUsersCocktails = createAsyncThunk<Cocktail[], string>(
     'cocktails/getUsersCocktails',
     async(userId: string) => {
-            const response = await axiosApi.get<Cocktail[]>(`/cocktails/${userId}/mycocktails`);
+            const response = await axiosApi.get<Cocktail[]>(`/cocktails?userId=${userId}`);
             return response.data
     }
 );
@@ -51,5 +57,34 @@ export const addNewCocktail = createAsyncThunk<void, CocktailMutation, {state: R
         await axiosApi.post('/cocktails', data,
             {headers: {Authorization: token}
             });
+    }
+);
+
+export const addIngredients = createAsyncThunk(
+    'cocktails/addIngredients',
+    async ({ cocktailId, ingredients }: AddIngredientsPayload, { getState }) => {
+        const state = getState() as RootState;
+        const token = state.users.user?.token;
+        console.log(token)
+
+        if (!token) {
+            console.log('Token not found, please log in');
+            return
+        }
+
+        try {
+            const response = await axiosApi.patch(
+                `/cocktails/${cocktailId}/addIngredients`,
+                ingredients,
+                {
+                    headers: {
+                        Authorization: token,
+                    },
+                }
+            );
+            return response.data;
+        } catch (error) {
+            return console.log(error);
+        }
     }
 );

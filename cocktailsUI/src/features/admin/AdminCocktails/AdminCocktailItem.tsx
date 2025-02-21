@@ -31,6 +31,7 @@ const AdminCocktailItem: React.FC<Props> = ({cocktails}) => {
                     )}
                 </div>
                 <div>
+                    User
                     {cocktails.user.displayName}
                 </div>
                 <div>

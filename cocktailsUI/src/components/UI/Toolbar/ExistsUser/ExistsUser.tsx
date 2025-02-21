@@ -59,7 +59,7 @@ const ExistsUser: React.FC<Props> = ({user}) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem>
-                        <NavLink to={`/cocktails/${user._id}/mycocktails`} className='text-decoration-none text-black'>
+                        <NavLink to={`/mycocktails?userId=${user._id}`} className='text-decoration-none text-black'>
                         My Cocktails
                         </NavLink>
                     </MenuItem>
