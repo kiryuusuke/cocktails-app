@@ -5,7 +5,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner.tsx";
 import AdminCocktailItem from "./AdminCocktailItem.tsx";
 
 
-const Cocktails = () => {
+const AdminCocktails = () => {
     const dispatch = useAppDispatch();
     const cocktails = useAppSelector((state) => state.adminCocktails.cocktails);
     const loading = useAppSelector((state) => state.adminCocktails.isLoading);
@@ -27,4 +27,4 @@ const Cocktails = () => {
     );
 };
 
-export default Cocktails;
+export default AdminCocktails;

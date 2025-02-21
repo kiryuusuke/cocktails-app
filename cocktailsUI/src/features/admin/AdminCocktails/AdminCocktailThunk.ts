@@ -3,11 +3,26 @@ import {Cocktail} from "../../../typesUI.ts";
 import axiosApi from "../../../axiosApi.ts";
 import {RootState} from "../../../app/store.ts";
 
-export const getAllCocktails = createAsyncThunk<Cocktail[], void>(
+export const getAllCocktails = createAsyncThunk<Cocktail[], void, {state: RootState}>(
     'admin/cocktails/getAllCocktails',
-    async() => {
-        const response = await axiosApi.get<Cocktail[]>('/admin/cocktails');
+    async(_, {getState}) => {
+        const token = getState().users.user?.token;
+        const response = await axiosApi.get<Cocktail[]>('/admin/cocktails',{
+            headers: {Authorization: token}
+        });
         return response.data || [];
+    }
+);
+
+export const publishCocktail = createAsyncThunk<Cocktail, string, {state: RootState}>(
+    'admin/publishCocktail',
+    async (id, {getState}) => {
+        const token = getState().users.user?.token;
+        console.log('Token:', token);
+        const response = await axiosApi.patch<Cocktail>(`/admin/cocktails/${id}/publish`, {}, {
+            headers: {Authorization: token}
+        });
+       return response.data;
     }
 );
 

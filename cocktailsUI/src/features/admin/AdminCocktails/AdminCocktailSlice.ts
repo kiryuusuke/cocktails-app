@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Cocktail} from "../../../typesUI.ts";
-import {deleteCocktail, getAllCocktails} from "./AdminCocktailThunk.ts";
+import {deleteCocktail, getAllCocktails, publishCocktail} from "./AdminCocktailThunk.ts";
 
 interface IAdminCocktailsSlice {
     cocktails: Cocktail[];
@@ -38,6 +38,25 @@ const adminCocktailSlice = createSlice({
                     state.isError = true;
                 }
             )
+            .addCase(
+                publishCocktail.pending, (state) => {
+                    state.isLoading = true;
+                    state.isError = false;
+                })
+            .addCase(
+                publishCocktail.fulfilled, (state, action: PayloadAction<Cocktail>) => {
+                    state.isLoading = false;
+                    const updatedCocktail = action.payload;
+                    const index = state.cocktails.findIndex((cocktail) => cocktail._id === updatedCocktail._id);
+                    if (index !== -1) {
+                        state.cocktails[index] = updatedCocktail;
+                    }
+                })
+            .addCase(
+                publishCocktail.rejected, (state) => {
+                    state.isLoading = false;
+                    state.isError = true;
+                })
             .addCase(
                 deleteCocktail.pending, (state) => {
                     state.isLoading = true;

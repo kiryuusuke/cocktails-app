@@ -14,7 +14,7 @@ const AdminNav = () => {
             <Grid>
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton component={Link} to='admin/cocktails'>
+                        <ListItemButton component={Link} to='/admin/cocktails'>
                         <ListItemText primary='Cocktails'/>
                     </ListItemButton>
                     </ListItem>

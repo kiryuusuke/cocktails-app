@@ -6,6 +6,7 @@ import {Provider} from "react-redux";
 import {persistor, store} from "./app/store.ts";
 import {PersistGate} from "redux-persist/integration/react";
 import {BrowserRouter} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css'
 
 createRoot(document.getElementById('root')!).render(
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
